@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Ibalita Mo!</title>
+
+    <!--font awesome-->
+    <link
+        rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" referrerpolicy="no-referrer" 
+    />
+
+    <!--Google font-->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+        href="https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400;500;600&display=swap"
+        rel="stylesheet"
+    />
+
+    <!---css style-->
+    <link rel="stylesheet" href="./style.css" />
+</head>
+<body>
+<header>
+    <img src="./logo.png" width="120px" />
+
+    <div class="inputSearch desktop">
+        <form id="searchForm">
+            <input type="text" placeholder="Type to search..." id="searchInput" />
+            <span> <i class="fa-solid fa-search"></i></span>
+        </form>
+    </div>
+    <nav class="desktop">
+        <ul>
+            <li onclick="Search('food')">Food</li>
+            <li onclick="Search('business')">Business</li>
+            <li onclick="Search('tech')">Tech</li>
+            <li onclick="Search('movies')">Movies</li>
+            <li onclick="Search('popular now')">Popular Now</li>
+        </ul>
+    </nav>
+
+    <div class="menuBtn">
+        <i class="fa-solid fa-bars"></i>
+    </div>
+
+    <!------>
+    <div class="mobile hidden">
+        <nav>
+            <ul>
+                <li onclick="Search('food')">Food</li>
+                <li onclick="Search('business')">Business</li>
+                <li onclick="Search('tech')">Tech</li>
+                <li onclick="Search('movies')">Movies</li>
+                <li onclick="Search('popular now')">Popular Now</li>
+            </ul>
+        </nav>
+        <div class="inputSearch">
+            <form id="searchFormMobile">
+                <input type="text" placeholder="Type to search..." id="searchInputMobile" />
+                <span> <i class="fa-solid fa-search"></i></span>
+            </form>
+        </div>
+    </div>
+</header>
+
+<main>
+    <!-- Newsflash Section -->
+    <div id="newsflash" class="newsflash">Waiting for news updates...</div>
+</main>
+
+<script src="script.js"></script>
+<script>
+    const newsflashElement = document.getElementById('newsflash');
+
+    function showNotification(title, message) {
+        if (Notification.permission === 'granted') {
+            new Notification(title, { body: message });
+        } else if (Notification.permission !== 'denied') {
+            Notification.requestPermission().then(permission => {
+                if (permission === 'granted') {
+                    new Notification(title, { body: message });
+                }
+            });
+        }
+    }
+
+    const ws = new WebSocket('ws://127.0.0.1:5500');
+
+    ws.onopen = () => {
+        console.log('Connected to WebSocket server');
+        newsflashElement.textContent = 'Connected to WebSocket server';
+    };
+
+    ws.onmessage = event => {
+        const data = JSON.parse(event.data);
+        console.log('Message received:', data);
+        newsflashElement.textContent = data.news;
+        showNotification('News Update', data.news);
+    };
+
+    ws.onclose = (event) => {
+        console.log('Disconnected from WebSocket server', event);
+        newsflashElement.textContent = 'Disconnected from WebSocket server';
+    };
+
+    ws.onerror = error => {
+        console.error('WebSocket error:', error);
+        newsflashElement.textContent = 'WebSocket error: ' + error.message;
+    };
+</script>
+</body>
+</html>

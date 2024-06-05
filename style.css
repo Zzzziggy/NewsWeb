@@ -1,0 +1,281 @@
+/* General styles */
+* {
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Poppins', sans-serif;
+    font-size: 16px;
+    margin: 0;
+    background: linear-gradient(135deg, #2c2c2c, #1c1c1c); /* Gradient background */
+    color: #f5f5f5;
+}
+
+/* Header */
+header {
+    background-color: rgba(58, 58, 58, 0.9); /* Semi-transparent header */
+    height: 65px;
+    display: flex;
+    align-items: center;
+    padding: 5px 10px;
+    justify-content: space-between;
+    box-shadow: 0px 3px 15px 0 rgba(80,119,242,0.3);
+    transition: background-color 0.3s ease, box-shadow 0.3s ease, transform 0.3s ease;
+}
+
+header:hover {
+    background-color: rgba(74, 74, 74, 0.9);
+    box-shadow: 0px 5px 20px 0 rgba(80,119,242,0.5);
+    transform: translateY(-2px); /* Subtle lift effect on hover */
+}
+
+nav ul {
+    display: flex;
+    list-style: none;
+    gap: 20px; /* Increased gap for better spacing */
+    padding: 0;
+}
+
+nav ul li {
+    cursor: pointer;
+    transition: color 0.3s ease, transform 0.3s ease;
+}
+
+nav ul li:hover {
+    color: #61dafb; /* Changed hover color to a lighter blue */
+    transform: scale(1.1);
+}
+
+.inputSearch,
+form {
+    display: flex;
+    align-items: center;
+    height: 40px;
+    width: 400px;
+    border-radius: 20px; /* Softer border radius */
+    overflow: hidden;
+    border: 1.5px solid #61dafb; /* Changed border color */
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.inputSearch:hover,
+form:hover {
+    border-color: #3a49d8;
+    box-shadow: 0 0 10px rgba(97, 218, 251, 0.5); /* Added shadow on hover */
+}
+
+.inputSearch input {
+    width: 100%;
+    height: 100%;
+    padding: 0px 15px;
+    border: none;
+    outline: none;
+    font-size: 16px;
+    background: rgba(44, 44, 44, 0.9); /* Slightly transparent background */
+    color: #f5f5f5;
+}
+
+.inputSearch span {
+    width: 70px;
+    background-color: #61dafb;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 18px;
+    color: white;
+}
+
+.menuBtn {
+    font-size: 20px;
+    width: 40px;
+    height: 40px;
+    border-radius: 20px; /* Softer border radius */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    transition: background-color 0.3s ease, color 0.3s ease, transform 0.3s ease;
+}
+
+.menuBtn:hover {
+    background-color: #61dafb;
+    color: #ffffff;
+    transform: rotate(90deg); /* Rotate effect on hover */
+}
+
+.desktop {
+    display: none;
+}
+
+@media all and (min-width: 700px) {
+    header {
+        padding: 5px 30px;
+    }
+
+    .desktop {
+        display: flex;
+    }
+
+    .menuBtn {
+        display: none;
+    }
+}
+
+/*** Mobile menu ***/
+.mobile {
+    position: fixed;
+    top: 70px;
+    width: 100%;
+    max-width: 700px;
+    background-color: rgba(44, 44, 44, 0.9); /* Slightly transparent background */
+    height: 100vh;
+    padding: 20px;
+    box-shadow: none;
+    z-index: 2;
+    margin-left: -10px;
+    transition: transform 0.3s ease-in-out;
+    transform: translateX(-100%);
+}
+
+.mobile.active {
+    transform: translateX(0);
+}
+
+.mobile nav,
+.mobile nav ul {
+    flex-direction: column;
+}
+
+.mobile .inputSearch,
+.mobile form {
+    height: 35px;
+}
+
+.hidden {
+    display: none;
+}
+
+@media all and (min-width: 700px) {
+    .mobile {
+        display: none;
+    }
+}
+
+/*** CSS card ***/
+main {
+    display: flex;
+    flex-direction: column;
+    gap: 25px;
+    padding: 10px;
+    margin: auto;
+    animation: fadeIn 1s ease-in-out;
+}
+
+.card {
+    display: flex;
+    flex-direction: column;
+    max-width: 400px;
+    box-shadow: 0px 10px 30px 0px rgba(0, 0, 0, 0.15); /* Custom shadow */
+    border-radius: 15px; /* Softer border radius */
+    overflow: hidden;
+    padding-bottom: 10px;
+    background: linear-gradient(135deg, #3a3a3a, #4a4a4a); /* Gradient background */
+    color: #f5f5f5;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.card:hover {
+    transform: translateY(-10px) scale(1.02); /* Slight scale effect */
+    box-shadow: 0px 15px 40px 0px rgba(0, 0, 0, 0.2);
+}
+
+.card img {
+    width: 100%;
+    object-fit: cover;
+    transition: transform 0.3s ease;
+}
+
+.card:hover img {
+    transform: scale(1.1);
+}
+
+.card h4 {
+    padding: 15px;
+    font-size: 20px; /* Slightly larger font */
+    color: #ffffff;
+    background-color: rgba(74, 74, 74, 0.9); /* Semi-transparent background */
+    margin: 0;
+}
+
+.card .publishbyDate {
+    display: flex;
+    align-items: center;
+    padding: 10px 15px;
+    font-size: 14px;
+    color: #a5a1a1;
+}
+
+.card .publishbyDate p {
+    margin: 0;
+}
+
+.card .publishbyDate span {
+    padding: 0 10px;
+}
+
+.card .desc {
+    padding: 15px;
+    overflow: hidden;
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    margin: 0;
+    color: #cccccc;
+}
+
+.card a {
+    color: inherit;
+    text-decoration: none;
+}
+
+@media all and (min-width: 700px) {
+    main {
+        padding: 20px;
+        flex-direction: row;
+        flex-wrap: wrap;
+        justify-content: center;
+    }
+
+    .card {
+        margin: 10px;
+    }
+}
+
+/* Keyframes */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Newsflash Section */
+.newsflash {
+    font-size: 18px;
+    text-align: center;
+    padding: 20px;
+    background-color: rgba(74, 74, 74, 0.9); /* Semi-transparent background */
+    border-radius: 10px; /* Softer border radius */
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.15); /* Custom shadow */
+    transition: background-color 0.3s ease, transform 0.3s ease;
+}
+
+.newsflash:hover {
+    background-color: rgba(90, 90, 90, 0.9);
+    transform: scale(1.05); /* Slight scale effect */
+}
